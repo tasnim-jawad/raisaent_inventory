@@ -1,0 +1,77 @@
+trim_content(content) {
+
+    if (typeof content == "string") {
+        return content.length > 50
+            ? content.substring(0, 50) + "..."
+            : content;
+    }
+    if (content && typeof content === "object") {
+        for (const key of Object.keys(content)) {
+            if (key === "title" && content.title) {
+                return content.title;
+            }
+            if (key === "name" && content.name) {
+                return content.name;
+            }
+        }
+    }
+
+    return content || "";
+
+},
+
+date time formate when get data
+filter by default date set
+
+
+
+cahnge this system
+return entityResponse([
+    ...$data->toArray(),
+    "active_data_count" => self::$model::active()->count(),
+    "inactive_data_count" => self::$model::inactive()->count(),
+    "trased_data_count" => self::$model::trased()->count(),
+]);
+
+
+onchange: {
+    required: false,
+    type: Function,
+    default: () => "",
+},
+onchangeAction: {
+    required: false,
+    type: String,
+    default: null,
+},
+
+
+errorReset(event) {
+
+    let currentElement = event.target;
+    let nextElement = currentElement.nextElementSibling;
+    if (nextElement) {
+        currentElement.classList.remove("border-warning");
+        nextElement.remove();
+    }
+    if (this.onchange) {
+        if (this.onchangeAction) {
+            this.onchange(this.onchangeAction, event, this);
+        } else {
+            this.onchange(event);
+        }
+    }
+
+},
+
+changeAction: function (actionTitle, event, ref) {
+    this[actionTitle](actionTitle, event, ref);
+},
+
+details body 
+<template v-if="row_item == 'image' && item[row_item]">
+          <img class="max-w-120" :src="item[row_item]" alt="" />
+        </template>
+        <template v-else>
+          {{ trim_content(item[row_item], row_item) }}
+        </template>

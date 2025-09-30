@@ -1,0 +1,89 @@
+
+/*
+|--------------------------------------------------------------------------
+| Product management Module
+|--------------------------------------------------------------------------
+*/
+php artisan make:module ProductManagement/ProductCategory [title:string-100,parent_id:int] --vue
+php artisan make:module ProductManagement/ProductSubCategory [product_category_id:int,title:string-100] --vue
+php artisan make:module ProductManagement/Product [title:string,description:text,suppliyer_id:int,product_category_id:int,product_sub_category_id:int] --vue
+
+
+/*
+|--------------------------------------------------------------------------
+| suppliyer management Module
+|--------------------------------------------------------------------------
+*/
+
+
+php artisan make:module SuppliyerManagement/SuppliyerGroup [name:string-100] --vue
+php artisan make:module SuppliyerManagement/Suppliyer [suppliyer_group_id:bigint,name:string-100,phone:string-20,email:string-50,address:string,comment:text,country:string-20] --vue
+
+/*
+|--------------------------------------------------------------------------
+| purchase management Module
+|--------------------------------------------------------------------------
+*/
+
+php artisan make:module PurchaseOrderManagement/PurchaseOrder [title:string-100,reference:string,suppliyer_id:int,date:datetime,currency_id:int,currency_exchange_rate:bigint,expected_time_of_delivery:date,subtotal:bigint,discount:bigint,total:bitgint,total_in_bd:bigint] --vue
+php artisan make:table PurchaseOrderManagement/PurchaseOrder/PurchaseOrderProduct [purchase_order_id:bigint,product_id:int,product_price:biging,currency_id:int,quantity:bigint,item_total:bigint,total_in_bdt:bigint] --model
+php artisan make:table PurchaseOrderManagement/PurchaseOrder/PurchaseOrderLog [purchase_order_id:bigint,order_title:string-100,reference:string,suppliyer_id:int,date:datetime,currency_id:int,currency_exchange_rate:bigint,expected_time_of_delivery:date,subtotal:bigint,discount:bigint,total:bitgint,total_in_bdt:bigint,purchase_order_products:json] --model
+php artisan make:table PurchaseOrderManagement/PurchaseOrder/PurchaseOrderHasPurchaseOrderProduct [purchase_order_id:bigint,purchase_order_products_ id:bigint] --model
+
+
+/*
+|--------------------------------------------------------------------------
+| warehouse management Module
+|--------------------------------------------------------------------------
+*/
+
+
+php artisan make:module WarehouseManagement/WareHouse [name:string-100,address:string] --vue
+php artisan make:module WarehouseManagement/WareHouseProductStock [warehouse_id:bigint,purchase_order_id:bigint,date:datetime] --vue
+php artisan make:table WarehouseManagement/WareHouseProductStock/WareHouseProductStockProduct [product_id:bigint,product_name:string,quantity:bigint] --model
+
+php artisan make:module WarehouseManagement/WarehouseProductOut [warehouse_id:int,purchase_order_id:string-20,date:datetime] --vue
+php artisan make:table WarehouseManagement/WarehouseProductOut/WarehouseProductOutProduct [product_id:int,product_name:string-100,quantity:bigint] --model
+php artisan make:table WarehouseManagement/WarehouseProductOut/WarehouseHasWarehouseProductOut [product_id:int,product_name:string-100,quantity:bigint] --model
+php artisan make:module WarehouseManagement/WarehouseSwapProduct [from_warehouse_id:bigint,to_warehouse_id:bigint,quantity:bigint] --vue
+
+
+/*
+|--------------------------------------------------------------------------
+| Customer management Module
+|--------------------------------------------------------------------------
+*/
+
+
+php artisan make:module CustomerManagement/CustomerGroup [name:string-100] --vue
+php artisan make:module CustomerManagement/Customer [name:string-100,phone:string-20,email:string-50,address:string,comment:text,country:string-20] --vue
+
+
+/*
+|--------------------------------------------------------------------------
+| sales order management Module
+|--------------------------------------------------------------------------
+*/
+
+
+php artisan make:module SalesOrderManagement/SalesOrder  [order_title:string-100,reference:string-50,customer_id:int,date:datetime,subtotal:bigint,due:bigint,paid:bigint,discount:bigint,total:bigint,order_status:enum-pending.due.paid] --vue
+php artisan make:table SalesOrderManagement/SalesOrder/SalesOrderProduct  [product_id:int,product_price:bigint,currency:string-20,item_total:bigint,item_total_in_bdt:bigint] --model
+php artisan make:table SalesOrderManagement/SalesOrder/SalesOrderLog  [sales_order_id:bigint,order_title:string-100,reference:string-50,customer_id:int,date:datetime,subtotal:bigint,due:bigint,paid:bigint,discount:bigint,total:bigint,order_status:enum-pending.due.paid,sales_order_products:json] --model
+php artisan make:table SalesOrderManagement/SalesOrder/SalesOrderHasSalesOrderProduct  [sales_order_id:bigint,sales_order_product_id:bigint] --model
+php artisan make:module SalesOrderManagement/SalesOrderCollectionHistory  [sales_order_id:bigint,amount:bigint] --vue
+
+
+/*
+|--------------------------------------------------------------------------
+| account management Module
+|--------------------------------------------------------------------------
+*/
+
+php artisan make:module AccountManagement/AccountCategory  [title:string-100,type:enum-income.expense,parent_id:int] --vue
+php artisan make:module AccountManagement/AccountSubCategory  [account_category_id:int,title:string-100,type:enum-income.expense,parent_id:int] --vue
+php artisan make:module AccountManagement/AccountIncome  [account_category_id:bigint,title:string-100,amount:bigint,description:text] --vue
+php artisan make:module AccountManagement/AccountExpense  [account_category_id:bigint,title:string-100,amount:bigint,description:text,is_approved:tinyint,user_type:enum-admin.employee] --vue
+php artisan make:table AccountManagement/AccountIncome/AccountLog  [account_expense_id:bigint,account_income_id:bigint,account_category_id:bigint,type:enum-income.expense,title:string-100,amount:bigint,description:text,details:json] --model
+php artisan make:table AccountManagement/AccountExpense/AccountLog  [account_expense_id:bigint,account_income_id:bigint,account_category_id:bigint,type:enum-income.expense,title:string-100,amount:bigint,description:text,details:json] --model
+
+

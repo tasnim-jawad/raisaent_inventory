@@ -1,0 +1,80 @@
+# Dependencies
+/node_modules
+/vendor
+package-lock.json
+composer.lock
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archive files
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+*.tar.bz2
+*.gz
+*.bz2
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Laravel specific
+/bootstrap/cache/*
+/storage/app/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+/public/hot
+/public/storage
+/public/build
+/.fleet
+/.vscode
+/.idea
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+# Build files
+/public/build/
+/public/hot
+/dist/
+/build/
+
+# Cache and temporary files
+*.log
+*.tmp
+*.temp
+.cache/
+.temp/
+
+# Test files
+.phpunit.result.cache
+/tests/Coverage/
+coverage/
+
+# Backup files
+*.bak
+*.backup
+*.orig
