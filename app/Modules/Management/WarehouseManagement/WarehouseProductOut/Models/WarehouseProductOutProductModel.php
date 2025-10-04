@@ -10,6 +10,8 @@ class WarehouseProductOutProductModel extends EloquentModel
     use SoftDeletes;
     protected $table = "warehouse_product_out_products";
     protected $guarded = [];
+    
+    protected static $WarehouseProductOutModel = \App\Modules\Management\WarehouseManagement\WarehouseProductOut\Models\Model::class;
 
     protected static function booted()
     {
@@ -39,5 +41,19 @@ class WarehouseProductOutProductModel extends EloquentModel
      public function scopeTrased($q)
     {
         return $q->onlyTrashed();
+    }
+
+    /**
+     * Get the warehouse product out that owns this product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function wareHouseProductOut()
+    {
+        return $this->belongsTo(
+            self::$WarehouseProductOutModel,
+            'ware_house_product_out_id',
+            'id'
+        );
     }
 }

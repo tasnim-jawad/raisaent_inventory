@@ -68,6 +68,20 @@ class GetAllData
                     ->orderBy($orderByColumn, $orderByType)
                     ->get();
 
+                // Get warehouse stock data efficiently for all products at once
+                $productIds = $data->pluck('id')->toArray();
+                if (!empty($productIds)) {
+                    $warehouseStockData = self::$model::getWarehouseStockDataForProducts($productIds);
+                    
+                    // Attach warehouse stock data to each product
+                    $data->each(function ($product) use ($warehouseStockData) {
+                        $product->setAttribute('warehouse_stock_details', $warehouseStockData[$product->id] ?? [
+                            'total_stock' => 0,
+                            'warehouse_details' => []
+                        ]);
+                    });
+                }
+
                 return entityResponse($data);
             } else if ($status == 'trased') {
                 $data = $data
@@ -84,6 +98,20 @@ class GetAllData
                     ->where('status', $status)
                     ->orderBy($orderByColumn, $orderByType)
                     ->paginate($pageLimit);
+            }
+
+            // Get warehouse stock data efficiently for paginated results
+            $productIds = $data->getCollection()->pluck('id')->toArray();
+            if (!empty($productIds)) {
+                $warehouseStockData = self::$model::getWarehouseStockDataForProducts($productIds);
+                
+                // Attach warehouse stock data to each product in the collection
+                $data->getCollection()->each(function ($product) use ($warehouseStockData) {
+                    $product->setAttribute('warehouse_stock_details', $warehouseStockData[$product->id] ?? [
+                        'total_stock' => 0,
+                        'warehouse_details' => []
+                    ]);
+                });
             }
 
             return entityResponse([

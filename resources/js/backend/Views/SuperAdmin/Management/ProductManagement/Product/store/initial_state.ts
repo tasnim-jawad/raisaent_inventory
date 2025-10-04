@@ -56,4 +56,7 @@ export const initialState = {
   /*_______________*/
   cached: 0,
   only_latest_data: false,
+  
+  /* warehouse data */
+  warehouses: [] as Array<anyObject>,
 };

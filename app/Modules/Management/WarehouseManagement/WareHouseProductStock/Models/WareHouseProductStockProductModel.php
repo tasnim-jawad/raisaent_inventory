@@ -46,6 +46,20 @@ class WareHouseProductStockProductModel extends EloquentModel
     /**
      * Get the warehouse product stock that owns the WareHouseProductStockProductModel
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function wareHouseProductStock()
+    {
+        return $this->belongsTo(
+            self::$WareHouseProductStockModel,
+            'ware_house_product_stock_id',
+            'id'
+        );
+    }
+
+    /**
+     * Get the warehouse product stock that owns the WareHouseProductStockProductModel
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function warehouse_product_stock(): \Illuminate\Database\Eloquent\Relations\HasOne

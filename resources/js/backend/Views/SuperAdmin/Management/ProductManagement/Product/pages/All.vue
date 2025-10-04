@@ -37,7 +37,7 @@
             <div
               class="table-responsive table_responsive card_body_fixed_height"
             >
-              <table class="table table-hover text-center table-bordered">
+              <table class="table table-hover text-center table-bordered" v-if="warehouses_loaded">
                 <thead>
                   <table-head />
                 </thead>
@@ -45,6 +45,12 @@
                   <table-body :data="all?.data" />
                 </tbody>
               </table>
+              <div v-else class="text-center p-4">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading warehouses...</span>
+                </div>
+                <p class="mt-2">Loading warehouses...</p>
+              </div>
             </div>
           </div>
           <div class="mx-3">
@@ -465,8 +471,11 @@ export default {
     suppliyers: [],
     product_sub_categories: [],
     loaded: false,
+    warehouses_loaded: false,
   }),
   created: async function () {
+    await this.get_warehouses();
+    this.warehouses_loaded = true;
     await this.get_all();
     await this.get_all_categories();
     await this.get_all_suppliers();
@@ -478,6 +487,7 @@ export default {
     export_demo_csv,
     ...mapActions(data_store, [
       "get_all",
+      "get_warehouses",
       `restore`,
       `soft_delete`,
       `update_status`,
@@ -694,6 +704,7 @@ export default {
       "suppliyer_id",
       "search_key",
       "page",
+      "warehouses",
     ]),
     isAllSelected() {
       return (

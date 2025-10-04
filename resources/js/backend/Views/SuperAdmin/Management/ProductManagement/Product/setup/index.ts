@@ -45,8 +45,9 @@ const setup: setup_type = {
     "title",
     "suppliyer",
     "product category",
-    "product sub category",
-    "stock quantity",
+    "product sub category", 
+    "total stock",
+    // Warehouse columns will be added dynamically
     "status",
     "created_at",
     "image",
@@ -58,6 +59,7 @@ const setup: setup_type = {
     "product_category",
     "product_sub_category",
     "total_stock_quantity",
+    // Warehouse stock columns will be added dynamically
     "status",
     "created_at",
     "image",
