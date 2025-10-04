@@ -27,7 +27,7 @@ export const initialState = {
     inactive_data_count: 0,
     trased_data_count: 0,
     page: 1,
-    paginate: 10,
+    paginate: 20,
     search_key: ``,
 
     orderByCol: 'id',

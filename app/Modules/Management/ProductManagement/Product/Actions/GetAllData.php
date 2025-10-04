@@ -28,8 +28,10 @@ class GetAllData
                 $searchKey = request()->input('search');
                 $data = $data->where(function ($q) use ($searchKey) {
                     $q->where('title', 'like', '%' . $searchKey . '%');
-                    $q->orWhere('title', 'like', '%' . $searchKey . '%');
                     $q->orWhere('description', 'like', '%' . $searchKey . '%');
+                    $q->orWhereHas('suppliyer', function ($supplierQuery) use ($searchKey) {
+                        $supplierQuery->where('name', 'like', '%' . $searchKey . '%');
+                    });
                 });
             }
 

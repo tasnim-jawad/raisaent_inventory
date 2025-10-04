@@ -19,6 +19,7 @@ const setup: setup_type = {
 
     select_fields: [
         "id",
+        "type",
         "name",
             "phone",
             "email",
@@ -33,6 +34,7 @@ const setup: setup_type = {
 
     sort_by_cols: [
         "id",
+        "type",
         "name",
             "phone",
             "email",
@@ -44,17 +46,19 @@ const setup: setup_type = {
     ],
     table_header_data: [
         "id",
+        "type",
         "name",
-            "phone",
-            "email",
-            "address",
-            "comment",
-            "country",
+        "phone",
+        "email",
+        "address",
+        "comment",
+        "country",
         "status",
         "created_at",
     ],
     table_row_data: [
         "id",
+        "type",
         "name",
             "phone",
             "email",

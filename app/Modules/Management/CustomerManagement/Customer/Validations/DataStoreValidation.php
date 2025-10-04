@@ -42,6 +42,7 @@ class DataStoreValidation extends FormRequest
     public function rules(): array
     {
         return [
+            'type' => 'required | sometimes',
             'name' => 'required | sometimes',
             'phone' => 'required | sometimes',
             'email' => 'required | sometimes',

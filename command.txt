@@ -17,7 +17,7 @@ php artisan make:module ProductManagement/Product [title:string,description:text
 
 
 php artisan make:module SuppliyerManagement/SuppliyerGroup [name:string-100] --vue
-php artisan make:module SuppliyerManagement/Suppliyer [suppliyer_group_id:bigint,name:string-100,phone:string-20,email:string-50,address:string,comment:text,country:string-20] --vue
+php artisan make:module SuppliyerManagement/Suppliyer [type:enum-company.individual,suppliyer_group_id:bigint,name:string-100,phone:string-20,email:string-50,address:string,comment:text,country:string-20] --vue
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ php artisan make:module WarehouseManagement/WarehouseSwapProduct [from_warehouse
 
 
 php artisan make:module CustomerManagement/CustomerGroup [name:string-100] --vue
-php artisan make:module CustomerManagement/Customer [name:string-100,phone:string-20,email:string-50,address:string,comment:text,country:string-20] --vue
+php artisan make:module CustomerManagement/Customer [type:enum-company.individual,name:string-100,phone:string-20,email:string-50,address:string,comment:text,country:string-20] --vue
 
 
 /*

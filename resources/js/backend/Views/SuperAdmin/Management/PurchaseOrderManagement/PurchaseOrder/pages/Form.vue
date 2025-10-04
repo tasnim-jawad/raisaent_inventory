@@ -137,21 +137,39 @@
             <div class="col-md-7">
               <div class="form-group">
                 <label for="">Select Products</label>
-                <select
-                  name=""
-                  id=""
-                  class="form-control"
-                  @change="set_product_item($event.target.value)"
-                >
-                  <option value="">Select Product</option>
-                  <option
-                    v-for="item in products"
-                    :value="item.id"
-                    :key="item.id"
+                <div class="position-relative">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Search and select product..."
+                    v-model="productSearch"
+                    @focus="showProductDropdown = true"
+                    @blur="hideProductDropdown"
+                    autocomplete="off"
+                  />
+                  <div
+                    v-if="showProductDropdown && filteredProducts.length > 0"
+                    class="dropdown-menu show w-100"
+                    style="max-height: 200px; overflow-y: auto; position: absolute; top: 100%; z-index: 1000;"
                   >
-                    {{ item.title }}
-                  </option>
-                </select>
+                    <a
+                      href="#"
+                      class="dropdown-item"
+                      v-for="item in filteredProducts"
+                      :key="item.id"
+                      @mousedown="selectProduct(item)"
+                    >
+                      {{ item.title }}
+                    </a>
+                  </div>
+                  <div
+                    v-if="showProductDropdown && filteredProducts.length === 0 && productSearch"
+                    class="dropdown-menu show w-100"
+                    style="position: absolute; top: 100%; z-index: 1000;"
+                  >
+                    <span class="dropdown-item-text">No products found</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -356,6 +374,8 @@ export default {
     products: [],
     suppliyers: [],
     product_items: [],
+    productSearch: "",
+    showProductDropdown: false,
     formData: {
       title: "",
       reference: "",
@@ -529,6 +549,37 @@ export default {
     },
     calculateDue() {
       this.formData.due = this.formData.paid - this.update_total_price.total;
+    },
+
+    selectProduct: function (product) {
+      // Check if the product_id already exists in product_items
+      if (this.product_items.some((item) => item.product_id == product.id)) {
+        alert("Product already exists");
+        this.productSearch = "";
+        this.showProductDropdown = false;
+        return;
+      }
+
+      this.product_items.push({
+        product_id: product.id,
+        product_name: product.title,
+        quantity: 0,
+        price: 0,
+        currency_id: 1,
+        subtotal_in_bdt: 0,
+        subtotal: 0,
+      });
+
+      // Clear search and hide dropdown
+      this.productSearch = "";
+      this.showProductDropdown = false;
+    },
+
+    hideProductDropdown: function () {
+      // Add a small delay to allow clicking on dropdown items
+      setTimeout(() => {
+        this.showProductDropdown = false;
+      }, 200);
     }
   },
 
@@ -593,6 +644,15 @@ export default {
     ...mapState(store, {
       item: "item",
     }),
+    
+    filteredProducts() {
+      if (!this.productSearch) {
+        return this.products;
+      }
+      return this.products.filter(product =>
+        product.title.toLowerCase().includes(this.productSearch.toLowerCase())
+      );
+    }
   },
 };
 </script>

@@ -1,5 +1,15 @@
 export default [
   {
+		name: "type",
+		label: "Select Customer Type",
+		type: "select",
+		value: "",
+    data_list: [
+      { value: "company", label: "Company" },
+      { value: "individual", label: "Individual" },
+    ],
+	},
+  {
     name: "name",
     label: "Enter customer name",
     type: "text",
