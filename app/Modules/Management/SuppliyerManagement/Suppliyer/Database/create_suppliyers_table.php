@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('suppliyers', function (Blueprint $table) {
             $table->id();
+            $table->enum('type', ['company', 'individual'])->nullable();
             $table->bigInteger('suppliyer_group_id')->nullable();
             $table->string('name', 100)->nullable();
             $table->string('phone', 20)->nullable();
